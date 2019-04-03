@@ -58,6 +58,7 @@ object GUI extends JFXApp {
             height = 10.0
             translateX = -725.0
             translateY = 700.0
+            fill = Color.BlueViolet
           }
         )
       }
