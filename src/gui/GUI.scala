@@ -59,7 +59,8 @@ object GUI extends JFXApp {
             translateX = -725.0
             translateY = 700.0
             fill = Color.BlueViolet
-          }
+          },
+          OurPlayer
         )
       }
     }
