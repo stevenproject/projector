@@ -29,7 +29,7 @@ object GUI extends JFXApp {
   }
 
   this.stage = new PrimaryStage {
-    this.title = "lord help us"
+    this.title = "lord help us!"
     scene = new Scene(1280, 960){
       fill = Color.White
       content = new HBox{
