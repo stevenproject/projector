@@ -9,7 +9,8 @@ import scalafx.scene.shape.{Circle, Rectangle}
 
 object GUI extends JFXApp {
 
-  var OurPlayer: Group = new Group {}
+
+  var sceneGraphicals: Group = new Group {}
 
   val Player: Circle = new Circle {
     centerX = Math.random() * 1280
@@ -18,6 +19,7 @@ object GUI extends JFXApp {
     fill = Color.Beige
   }
 
+  sceneGraphicals.children.add(Player)
 
 
   val background = new Rectangle() {
@@ -29,7 +31,7 @@ object GUI extends JFXApp {
   }
 
   this.stage = new PrimaryStage {
-    this.title = "fuck you"
+    this.title = "you got a dollar?"
     scene = new Scene(1280, 960){
       fill = Color.White
       content = new HBox{
@@ -60,7 +62,9 @@ object GUI extends JFXApp {
             height = 10.0
             translateX = -725.0
             translateY = 700.0
-          }
+            fill = Color.Black
+          },
+          sceneGraphicals
         )
       }
     }
