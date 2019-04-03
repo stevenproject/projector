@@ -16,7 +16,7 @@ object GUI extends JFXApp {
     centerX = Math.random() * 1280
     centerY = Math.random() * 960
     radius = 20
-    fill = Color.GhostWhite
+    fill = Color.BlanchedAlmond
   }
 
   Ourplayer.children.add(Player)
