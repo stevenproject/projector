@@ -18,8 +18,6 @@ object GUI extends JFXApp {
     fill = Color.Beige
   }
 
-
-
   val background = new Rectangle() {
     width = 1280
     height = 960
@@ -65,6 +63,4 @@ object GUI extends JFXApp {
       }
     }
   }
-
-
 }
