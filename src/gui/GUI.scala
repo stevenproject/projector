@@ -9,18 +9,14 @@ import scalafx.scene.shape.{Circle, Rectangle}
 
 object GUI extends JFXApp {
 
-
-  var Ourplayer: Group = new Group {}
+  var OurPlayer: Group = new Group {}
 
   val Player: Circle = new Circle {
     centerX = Math.random() * 1280
     centerY = Math.random() * 960
     radius = 20
-    fill = Color.BlanchedAlmond
+    fill = Color.Beige
   }
-
-  Ourplayer.children.add(Player)
-
 
   val background = new Rectangle() {
     width = 1280
@@ -31,7 +27,7 @@ object GUI extends JFXApp {
   }
 
   this.stage = new PrimaryStage {
-    this.title = "you got a dollar?"
+    this.title = "lord help us!"
     scene = new Scene(1280, 960){
       fill = Color.White
       content = new HBox{
@@ -55,20 +51,17 @@ object GUI extends JFXApp {
             height = 700.0
             translateX = -10.0
             translateY = 0.0
-            fill = Color.Black
+            fill = Color.Red
           },
           new Rectangle{
             width = 715.0
             height = 10.0
             translateX = -725.0
             translateY = 700.0
-            fill = Color.Black
-          },
-          Ourplayer
+            fill = Color.BlueViolet
+          }
         )
       }
     }
   }
-
-
 }
