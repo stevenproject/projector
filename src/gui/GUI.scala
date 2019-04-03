@@ -10,7 +10,7 @@ import scalafx.scene.shape.{Circle, Rectangle}
 object GUI extends JFXApp {
 
 
-  var sceneGraphicals: Group = new Group {}
+  var Ourplayer: Group = new Group {}
 
   val Player: Circle = new Circle {
     centerX = Math.random() * 1280
@@ -19,7 +19,7 @@ object GUI extends JFXApp {
     fill = Color.GhostWhite
   }
 
-  sceneGraphicals.children.add(Player)
+  Ourplayer.children.add(Player)
 
 
   val background = new Rectangle() {
@@ -64,7 +64,7 @@ object GUI extends JFXApp {
             translateY = 700.0
             fill = Color.Black
           },
-          sceneGraphicals
+          Ourplayer
         )
       }
     }
