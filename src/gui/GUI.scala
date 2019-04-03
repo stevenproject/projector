@@ -53,7 +53,7 @@ object GUI extends JFXApp {
             height = 700.0
             translateX = -10.0
             translateY = 0.0
-            fill = Color.Black
+            fill = Color.Red
           },
           new Rectangle{
             width = 715.0
