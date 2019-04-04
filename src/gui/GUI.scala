@@ -21,32 +21,32 @@ object GUI extends JFXApp {
     radius = 20
     fill = Color.HotPink
   }
-  val top: Rectangle = new Rectangle{ //top
-    width = 700.0
+  val top: Rectangle = new Rectangle{
+    width = 1024.0
     height = 10.0
     x = 0.0
     y = 0.0
     fill = Color.Black
   }
-  val right: Rectangle = new Rectangle{ //right
+  val right: Rectangle = new Rectangle{
       width = 10.0
-      height = 700.0
-      x = 690.0
+      height = 768.0
+      x = 1014.0
       y = 0.0
       fill = Color.Black
   }
   val left: Rectangle = new Rectangle{
       width = 10.0
-      height = 700.0
+      height = 768.0
       x = 0.0
       y = 0.0
       fill = Color.Black
   }
   val bot: Rectangle = new Rectangle{
-      width = 700.0
+      width = 1024.0
       height = 10.0
       x = 0.0
-      y = 690.0
+      y = 1014.0
       fill = Color.Black
   }
   val defeat: Text = new Text {
@@ -65,33 +65,33 @@ object GUI extends JFXApp {
   addbounds(right)
   addbounds(left)
   addbounds(bot)
-  scenestuff.children.add(defeat)
+
   def moveRight(): Unit = {
     Player.translateX.value += playerSpeedx
-      if(Player.intersects(right.getBoundsInLocal)){
+      if(Player.getBoundsInParent.intersects(right.getBoundsInLocal)){
         scenestuff.getChildren.remove(Player)
         scenestuff.children.add(defeat)
       }
     }
   def moveLeft(): Unit = {
     Player.translateX.value -= playerSpeedx
-    if(Player.intersects(left.getBoundsInLocal)){
+    if(Player.getBoundsInParent.intersects(left.getBoundsInParent)){
       scenestuff.getChildren.remove(Player)
       scenestuff.children.add(defeat)
     }
   }
   def moveBot(): Unit = {
     Player.translateY.value += playerSpeedx
-    if(Player.intersects(bot.getBoundsInLocal)){
+    if(Player.getBoundsInParent.intersects(bot.getBoundsInParent)){
       scenestuff.getChildren.remove(Player)
+      scenestuff.children.add(defeat)
     }
   }
   def moveTop(): Unit = {
     Player.translateY.value -= playerSpeedx
-    if(Player.intersects(top.getBoundsInLocal)){
-      playerSpeedx = 0
-      playerSpeedy = 0
+    if(Player.getBoundsInParent.intersects(top.getBoundsInParent)){
       scenestuff.getChildren.remove(Player)
+      scenestuff.children.add(defeat)
     }
   }
   def keyPressed(keyCode: KeyCode): Unit = {
