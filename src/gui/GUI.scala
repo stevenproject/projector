@@ -21,35 +21,35 @@ object GUI extends JFXApp {
     radius = 20
     fill = Color.HotPink
   }
-  val top = new Rectangle{ //top
+  val top: Rectangle = new Rectangle{ //top
     width = 700.0
     height = 10.0
     x = 0.0
     y = 0.0
     fill = Color.Black
   }
-  val right = new Rectangle{ //right
+  val right: Rectangle = new Rectangle{ //right
       width = 10.0
       height = 700.0
       x = 690.0
       y = 0.0
       fill = Color.Black
   }
-  val left = new Rectangle{
+  val left: Rectangle = new Rectangle{
       width = 10.0
       height = 700.0
       x = 0.0
       y = 0.0
       fill = Color.Black
   }
-  val bot = new Rectangle{
+  val bot: Rectangle = new Rectangle{
       width = 700.0
       height = 10.0
       x = 0.0
       y = 690.0
       fill = Color.Black
   }
-  val defeat = new Text {
+  val defeat: Text = new Text {
     text = "Score for this problem: 0.0"
     style = "-fx-font-size: 96 pt"
     fill = Color.Black
@@ -100,7 +100,7 @@ object GUI extends JFXApp {
       case "A" => moveLeft()
       case "S" => moveBot()
       case "D" => moveRight()
-      case _ => println(keyCode.getName + " pressed with no action")
+      case _ => println("wrong button sir")
     }
   }
 
