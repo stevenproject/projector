@@ -2,7 +2,6 @@ package gui
 
 import javafx.scene.input.{KeyCode, KeyEvent}
 import javafx.scene.input.MouseEvent
-import scalafx.animation.AnimationTimer
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.image.{Image, ImageView}
@@ -209,7 +208,7 @@ object GUI extends JFXApp {
       }
       else {
       }
-      if (collision(Player.translateX.value, Player.translateY.value, WALL)){
+      if (collision(WALL)){
         scenestuff.getChildren.remove(Player)
         scenestuff.children.add(defeat)
       }
@@ -233,7 +232,7 @@ object GUI extends JFXApp {
         }
         else {
         }
-        if (collision(Player.translateX.value, Player.translateY.value, WALL)){
+        if (collision(WALL)){
           scenestuff.getChildren.remove(Player)
           scenestuff.children.add(defeat)
         }
