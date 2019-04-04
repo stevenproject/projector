@@ -75,7 +75,13 @@ object GUI extends JFXApp {
     x = 0.0
     y = 100.0
   }
-
+  val victory: Text = new Text {
+    text = "Score for this problem: 50.0"
+    style = "-fx-font-size: 96 pt"
+    fill = Color.Black
+    x = 0.0
+    y = 100.0
+  }
   def addbounds(bounds: List[Rectangle]): Unit = {
     for (bound <- bounds)
     scenestuff.children.add(bound)
@@ -86,7 +92,7 @@ object GUI extends JFXApp {
   addbounds(WALL)
   scenestuff.children.add(h)
 
-  def collision(x: Double, y: Double, bounds: List[Rectangle]): Boolean = {
+  def collision(bounds: List[Rectangle]): Boolean = {
     var detect: Boolean = false
     for (bound <- bounds){
       if (Player.getBoundsInParent.intersects(bound.getBoundsInLocal)){
@@ -95,9 +101,58 @@ object GUI extends JFXApp {
     }
     detect
   }
+  def hartloffmoved(bounds: List[Rectangle]): Unit = {
+    if (Player.getBoundsInParent.intersects(h.getBoundsInLocal)){
+      h.translateX.value += playerSpeedx
+      for (bound <- bounds){
+        if (h.getBoundsInParent.intersects(bound.getBoundsInLocal)){
+          scenestuff.getChildren.remove(Player)
+          scenestuff.getChildren.remove(h)
+          scenestuff.children.add(victory)
+        }
+      }
+    }
+  }
+  def hartloffmovew(bounds: List[Rectangle]): Unit = {
+    if (Player.getBoundsInParent.intersects(h.getBoundsInLocal)){
+      h.translateY.value -= playerSpeedx
+      for (bound <- bounds){
+        if (h.getBoundsInParent.intersects(bound.getBoundsInLocal)){
+          scenestuff.getChildren.remove(Player)
+          scenestuff.getChildren.remove(h)
+          scenestuff.children.add(victory)
+        }
+      }
+    }
+  }
+  def hartloffmovea(bounds: List[Rectangle]): Unit = {
+    if (Player.getBoundsInParent.intersects(h.getBoundsInLocal)){
+      h.translateX.value -= playerSpeedx
+      for (bound <- bounds){
+        if (h.getBoundsInParent.intersects(bound.getBoundsInLocal)){
+          scenestuff.getChildren.remove(Player)
+          scenestuff.getChildren.remove(h)
+          scenestuff.children.add(victory)
+        }
+      }
+    }
+  }
+  def hartloffmoves(bounds: List[Rectangle]): Unit = {
+    if (Player.getBoundsInParent.intersects(h.getBoundsInLocal)){
+      h.translateY.value += playerSpeedx
+      for (bound <- bounds){
+        if (h.getBoundsInParent.intersects(bound.getBoundsInLocal)){
+          scenestuff.getChildren.remove(Player)
+          scenestuff.getChildren.remove(h)
+          scenestuff.children.add(victory)
+        }
+      }
+    }
+  }
   def moveRight(): Unit = {
     Player.translateX.value += playerSpeedx
-    if (collision(Player.translateX.value, Player.translateY.value, WALL)) {
+    hartloffmoved(WALL)
+    if (collision(WALL)) {
       scenestuff.getChildren.remove(Player)
       scenestuff.children.add(defeat)
     }
@@ -105,7 +160,8 @@ object GUI extends JFXApp {
 
   def moveLeft(): Unit = {
     Player.translateX.value -= playerSpeedx
-    if (collision(Player.translateX.value, Player.translateY.value, WALL)) {
+    hartloffmovea(WALL)
+    if (collision(WALL)) {
       scenestuff.getChildren.remove(Player)
       scenestuff.children.add(defeat)
     }
@@ -113,7 +169,8 @@ object GUI extends JFXApp {
 
   def moveBot(): Unit = {
     Player.translateY.value += playerSpeedx
-    if (collision(Player.translateX.value, Player.translateY.value, WALL)) {
+    hartloffmoves(WALL)
+    if (collision(WALL)) {
       scenestuff.getChildren.remove(Player)
       scenestuff.children.add(defeat)
     }
@@ -121,7 +178,8 @@ object GUI extends JFXApp {
 
   def moveTop(): Unit = {
     Player.translateY.value -= playerSpeedx
-    if (collision(Player.translateX.value, Player.translateY.value, WALL)) {
+    hartloffmovew(WALL)
+    if (collision(WALL)) {
       scenestuff.getChildren.remove(Player)
       scenestuff.children.add(defeat)
     }
