@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent
 import scalafx.animation.AnimationTimer
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.{Group, Scene}
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.{Circle, Rectangle}
@@ -13,14 +14,22 @@ import scalafx.scene.text.Text
 object GUI extends JFXApp {
 
   var scenestuff: Group = new Group {}
+  val DAMNYOUHW5: Image = new Image("/gui/HARTLOFF.png",true)
+  val jesse: Image = new Image("/gui/jessewhat.jpg",true)
+  val iv: ImageView = new ImageView(DAMNYOUHW5)
+  val h: ImageView = new ImageView(jesse)
+  h.x = 500
+  h.y = 500
   var playerSpeedx = 10
   var playerSpeedy = 10
+  val rx = new scala.util.Random
   val Player: Circle = new Circle {
-    centerX = 200
-    centerY = 200
+    centerX = 10 + rx.nextInt(1004)
+    centerY = 10 + rx.nextInt(748)
     radius = 20
     fill = Color.HotPink
   }
+
   val top: Rectangle = new Rectangle {
     width = 1024.0
     height = 10.0
@@ -28,6 +37,7 @@ object GUI extends JFXApp {
     y = 100.0
     fill = Color.Black
   }
+
   val right: Rectangle = new Rectangle {
     width = 10.0
     height = 768.0
@@ -35,6 +45,7 @@ object GUI extends JFXApp {
     y = 100.0
     fill = Color.Black
   }
+
   val left: Rectangle = new Rectangle {
     width = 10.0
     height = 768.0
@@ -42,6 +53,7 @@ object GUI extends JFXApp {
     y = 100.0
     fill = Color.Black
   }
+
   val bot: Rectangle = new Rectangle {
     width = 1024.0
     height = 10.0
@@ -49,6 +61,13 @@ object GUI extends JFXApp {
     y = 858.0
     fill = Color.Black
   }
+  var WALL: List[Rectangle] = List()
+
+  WALL = WALL :+ top
+  WALL = WALL :+ left
+  WALL = WALL :+ bot
+  WALL = WALL :+ right
+
   val defeat: Text = new Text {
     text = "Score for this problem: 0.0"
     style = "-fx-font-size: 96 pt"
@@ -57,19 +76,28 @@ object GUI extends JFXApp {
     y = 100.0
   }
 
-  def addbounds(bound: Rectangle): Unit = {
+  def addbounds(bounds: List[Rectangle]): Unit = {
+    for (bound <- bounds)
     scenestuff.children.add(bound)
   }
 
+  scenestuff.children.add(iv)
   scenestuff.children.add(Player)
-  addbounds(top)
-  addbounds(right)
-  addbounds(left)
-  addbounds(bot)
+  addbounds(WALL)
+  scenestuff.children.add(h)
 
+  def collision(x: Double, y: Double, bounds: List[Rectangle]): Boolean = {
+    var detect: Boolean = false
+    for (bound <- bounds){
+      if (Player.getBoundsInParent.intersects(bound.getBoundsInLocal)){
+        detect = true
+      }
+    }
+    detect
+  }
   def moveRight(): Unit = {
     Player.translateX.value += playerSpeedx
-    if (Player.getBoundsInParent.intersects(right.getBoundsInLocal)) {
+    if (collision(Player.translateX.value, Player.translateY.value, WALL)) {
       scenestuff.getChildren.remove(Player)
       scenestuff.children.add(defeat)
     }
@@ -77,7 +105,7 @@ object GUI extends JFXApp {
 
   def moveLeft(): Unit = {
     Player.translateX.value -= playerSpeedx
-    if (Player.getBoundsInParent.intersects(left.getBoundsInParent)) {
+    if (collision(Player.translateX.value, Player.translateY.value, WALL)) {
       scenestuff.getChildren.remove(Player)
       scenestuff.children.add(defeat)
     }
@@ -85,7 +113,7 @@ object GUI extends JFXApp {
 
   def moveBot(): Unit = {
     Player.translateY.value += playerSpeedx
-    if (Player.getBoundsInParent.intersects(bot.getBoundsInParent)) {
+    if (collision(Player.translateX.value, Player.translateY.value, WALL)) {
       scenestuff.getChildren.remove(Player)
       scenestuff.children.add(defeat)
     }
@@ -93,7 +121,7 @@ object GUI extends JFXApp {
 
   def moveTop(): Unit = {
     Player.translateY.value -= playerSpeedx
-    if (Player.getBoundsInParent.intersects(top.getBoundsInParent)) {
+    if (collision(Player.translateX.value, Player.translateY.value, WALL)) {
       scenestuff.getChildren.remove(Player)
       scenestuff.children.add(defeat)
     }
@@ -108,29 +136,60 @@ object GUI extends JFXApp {
       case _ => println("wrong button sir")
     }
   }
-  def MouseMovex (x: Double): Unit = {
-    if (Player.translateX.value < x) {
-      Player.translateX.value += x/100
-      MouseMovex(x)
+
+  def MouseMovex (x: Int): Unit = {
+    if (10 < x && x < 1024){
+      if (Player.centerX.value < x) {
+        Player.centerX.value += 1
+        iv.translateX.value += 1
+        MouseMovex(x)
+      }
+      else if (Player.centerX.value > x) {
+        Player.centerX.value -= 1
+        iv.translateX.value -= 1
+        MouseMovex(x)
+      }
+      else {
+      }
+      if (collision(Player.translateX.value, Player.translateY.value, WALL)){
+        scenestuff.getChildren.remove(Player)
+        scenestuff.children.add(defeat)
+      }
     }
-    else if (Player.translateX.value > x) {
-      Player.translateX.value -= x/100
-      MouseMovex(x)
+    else {
+      println("out of x-range")
     }
   }
-    def MouseMovey (y: Double): Unit = {
-      if (Player.translateY.value < y) {
-        Player.translateY.value += y/100
-        MouseMovey(y)
+
+    def MouseMovey (y: Int): Unit = {
+      if (110 < y && y < 768) {
+        if (Player.centerY.value < y) {
+          Player.centerY.value += 1
+          iv.translateY.value += 1
+          MouseMovey(y)
+        }
+        else if (Player.centerY.value > y) {
+          Player.centerY.value -= 1
+          iv.translateY.value -= 1
+          MouseMovey(y)
+        }
+        else {
+        }
+        if (collision(Player.translateX.value, Player.translateY.value, WALL)){
+          scenestuff.getChildren.remove(Player)
+          scenestuff.children.add(defeat)
+        }
       }
-      else if (Player.translateY.value > y) {
-        Player.translateY.value -= y/100
-        MouseMovey(y)
+      else{
+        println("out of y-range")
       }
-  }
+    }
+
   def MouseMove(x: Double, y: Double): Unit = {
-    MouseMovex(x)
-    MouseMovey(y)
+    val xi: Int = x.toInt
+    val yi: Int = y.toInt
+    MouseMovex(xi)
+    MouseMovey(yi)
   }
 
   this.stage = new PrimaryStage {
@@ -142,10 +201,4 @@ object GUI extends JFXApp {
     addEventHandler(KeyEvent.KEY_PRESSED, (event: KeyEvent) => keyboardMove(event.getCode))
     addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => MouseMove(event.getX, event.getY))
   }
-  val update: Long => Unit = (time: Long) => {
-    4
-  }
-
-  // Start Animations. Calls update 60 times per second (takes update as an argument)
-  AnimationTimer(update).start()
 }
