@@ -25,28 +25,28 @@ object GUI extends JFXApp {
     width = 1024.0
     height = 10.0
     x = 0.0
-    y = 0.0
+    y = 100.0
     fill = Color.Black
   }
   val right: Rectangle = new Rectangle{
       width = 10.0
       height = 768.0
       x = 1014.0
-      y = 0.0
+      y = 100.0
       fill = Color.Black
   }
   val left: Rectangle = new Rectangle{
       width = 10.0
       height = 768.0
       x = 0.0
-      y = 0.0
+      y = 100.0
       fill = Color.Black
   }
   val bot: Rectangle = new Rectangle{
       width = 1024.0
       height = 10.0
       x = 0.0
-      y = 1014.0
+      y = 858.0
       fill = Color.Black
   }
   val defeat: Text = new Text {
@@ -54,7 +54,7 @@ object GUI extends JFXApp {
     style = "-fx-font-size: 96 pt"
     fill = Color.Black
     x = 0.0
-    y = 350.0
+    y = 100.0
   }
   def addbounds(bound: Rectangle): Unit = {
     scenestuff.children.add(bound)
