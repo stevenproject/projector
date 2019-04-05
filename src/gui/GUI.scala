@@ -17,14 +17,12 @@ object GUI extends JFXApp {
   val jesse: Image = new Image("/gui/jessewhat.jpg",true)
   val iv: ImageView = new ImageView(DAMNYOUHW5)
   val h: ImageView = new ImageView(jesse)
-  h.x = 500
-  h.y = 500
   var playerSpeedx = 10
   var playerSpeedy = 10
   val rx = new scala.util.Random
   val Player: Circle = new Circle {
     centerX = 10 + rx.nextInt(1004)
-    centerY = 10 + rx.nextInt(748)
+    centerY = 110 + rx.nextInt(748)
     radius = 20
     fill = Color.HotPink
   }
@@ -86,10 +84,20 @@ object GUI extends JFXApp {
     scenestuff.children.add(bound)
   }
 
+  def inserthartloff(): Unit = {
+    h.x = 10 + rx.nextInt(1004)
+    h.y = 110 + rx.nextInt(748)
+    scenestuff.children.add(h)
+    if (h.getBoundsInParent.intersects(Player.getBoundsInLocal)){
+      scenestuff.getChildren.remove(h)
+      inserthartloff()
+    }
+  }
+
   scenestuff.children.add(iv)
   scenestuff.children.add(Player)
   addbounds(WALL)
-  scenestuff.children.add(h)
+  inserthartloff()
 
   def collision(bounds: List[Rectangle]): Boolean = {
     var detect: Boolean = false
