@@ -85,8 +85,8 @@ object GUI extends JFXApp {
   }
 
   def inserthartloff(): Unit = {
-    h.x = 10 + rx.nextInt(1004)
-    h.y = 110 + rx.nextInt(748)
+    h.x = 10 + rx.nextInt(900)
+    h.y = 110 + rx.nextInt(550)
     scenestuff.children.add(h)
     if (h.getBoundsInParent.intersects(Player.getBoundsInLocal)){
       scenestuff.getChildren.remove(h)
